@@ -1,0 +1,17 @@
+version: '3'
+services:
+    php:
+        build:
+            context: .
+            dockerfile: php/Dockerfile
+        container_name: ibexa_php
+        restart: always
+        volumes:
+            - ${APP_CODE_PATH_HOST}:/var/www
+            - ${APP_CODE_PATH_HOST}var/log/php:/var/log/php:cached
+        ports:
+          - ${HTTP_PORT}:80
+        environment:
+          PHP_IDE_CONFIG: serverName=php-docker.local
+        env_file:
+            - ".env"
