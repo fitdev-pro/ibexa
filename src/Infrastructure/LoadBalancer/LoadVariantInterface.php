@@ -8,5 +8,5 @@ use App\Infrastructure\Hosts\HostInterface;
 
 interface LoadVariantInterface
 {
-    public function canHandleRequest(HostInterface $host):bool;
+    public function choseHost(array $hosts):HostInterface;
 }

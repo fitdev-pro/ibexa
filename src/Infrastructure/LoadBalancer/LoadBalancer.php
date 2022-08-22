@@ -26,10 +26,7 @@ class LoadBalancer
     }
 
     public function handleRequest(Request $request): void{
-        foreach ($this->hosts as $host) {
-            if($this->variant->canHandleRequest($host)) {
-                $host->handleRequest($request);
-            }
-        }
+        $host = $this->variant->choseHost($this->hosts);
+        $host->handleRequest($request);
     }
 }

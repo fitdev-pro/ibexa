@@ -15,8 +15,19 @@ class LoadLimitVariant implements LoadVariantInterface
         $this->limit = $limit;
     }
 
-    public function canHandleRequest(HostInterface $host):bool
+    public function choseHost(array $hosts):HostInterface
     {
-        return $this->limit > $host->getLoad();
+        $lowestHost = null;
+        $lowestHostLoad = 1;
+        foreach ($hosts as $host) {
+            if($host->getLoad() < $lowestHostLoad){
+                $lowestHost = $host;
+            }
+            if($this->limit > $host->getLoad()) {
+                return $host;
+            }
+        }
+
+        return $lowestHost;
     }
 }
